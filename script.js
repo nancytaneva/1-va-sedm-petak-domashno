@@ -64,7 +64,7 @@ if(LastDigitVoterCardSerialNumber > 3) {
 if(doYouHideTaxes = "Да") {
     console.log("Браво, моето момче");
 }
-else if(doYouHideTaxes = "Не") {
+if(doYouHideTaxes = "Не") {
     console.log("Будала");
 }
 // else {
