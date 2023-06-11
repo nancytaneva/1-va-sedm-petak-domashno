@@ -94,6 +94,8 @@ const LastDigitVoterCardSerialNumber = parseInt((voterCardSerialNumber%100)/10);
 
 // Вариант 2:
 
+const doYouHideTaxes = LastDigitVoterCardSerialNumber > 3;
+
 if(doYouHideTaxes) {
     const questionFlag              = prompt(`Укриваш ли данъци - Отговори с "Да" или "Не"`);
     const doYouHideTaxes     = (questionFlag == 'Да');
