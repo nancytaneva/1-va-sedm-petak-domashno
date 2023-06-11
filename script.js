@@ -9,23 +9,43 @@
 
 const POOR_VOTER_COEFFICIENT     = 99;
 const NORMAL_VOTER_COEFFICIENT   = 100000;
-const RICH_VOTERoCOEFFICIENT     = 999999;
+const RICH_VOTER_COEFFICIENT     = 999999;
 
 const voterCardSerialNumber = prompt("Моля, въведете серийния номер на Вашата идентификационна карта:");
 
-const voterIsPoor     = (voterCardSerialNumber > POOR_VOTER_COEFFICIENT) && (voterCardSerialNumber < NORMAL_VOTER_COEFFICIENT);
-const voterIsNormal   = (voterCardSerialNumber >= NORMAL_VOTER_COEFFICIENT) && (voterCardSerialNumber <= RICH_VOTERoCOEFFICIENT);
-const voterIsRich     = voterCardSerialNumber > RICH_VOTERoCOEFFICIENT;
 
-if(voterIsPoor) {
-    console.log("Хайде по-бързо и да те няма");
-}
+//Вариант 1: с ELSE
+// const voterIsNormal   = (voterCardSerialNumber >= NORMAL_VOTER_COEFFICIENT) && (voterCardSerialNumber <= RICH_VOTER_COEFFICIENT);
+// const voterIsRich     = voterCardSerialNumber > RICH_VOTER_COEFFICIENT;
+// const voterIsPoor     = (voterCardSerialNumber > POOR_VOTER_COEFFICIENT) && (voterCardSerialNumber < NORMAL_VOTER_COEFFICIENT);
+
+// if(voterIsNormal) {
+//     console.log("Има за нас, има и за вас");
+// }
+// else if(voterIsRich) {
+//     console.log("Радваме се, че нормални хора вече гласуват");
+// }
+// else if(voterIsPoor) {
+//     console.log("Хайде по-бързо и да те няма");
+// }
+
+//Вариант 2:
+
+const voterIsNormal   = (voterCardSerialNumber >= NORMAL_VOTER_COEFFICIENT) && (voterCardSerialNumber <= RICH_VOTER_COEFFICIENT);
+const voterIsRich     = voterCardSerialNumber > RICH_VOTER_COEFFICIENT;
+const voterIsPoor     = (voterCardSerialNumber > POOR_VOTER_COEFFICIENT) && (!voterIsNormal) && (!voterIsRich);
+
 if(voterIsNormal) {
     console.log("Има за нас, има и за вас");
 }
-if(voterIsRich) {
+ if(voterIsRich) {
     console.log("Радваме се, че нормални хора вече гласуват");
 }
+ if(voterIsPoor) {
+    console.log("Хайде по-бързо и да те няма");
+}
+
+
 
 // Задача 2
 // След въвеждане на номера системата трябва да изведе съобщение в зависимост от типа на гласоподавателя. Съобщението можете да видите в таблицата.
@@ -44,7 +64,7 @@ if(voterIsRich) {
 // Пример: 105468 е четно число и клиентът е VIP
 // Пример: 115485 е нечетно число и клиентът няма специални правомощия
 
-const isVoterVIP = (voterCardSerialNumber%2) == 0;
+const isVoterVIP = (voterCardSerialNumber%2 == 0);
 if(isVoterVIP) {
     console.log("Гласоподавателят е VIP.");
 }
@@ -59,19 +79,30 @@ if(isVoterVIP) {
 
 const LastDigitVoterCardSerialNumber = parseInt((voterCardSerialNumber%100)/10);
 
-if(LastDigitVoterCardSerialNumber > 3) {
-    var doYouHideTaxes = prompt(`Укриваш ли данъци? Напиши с "Да" или "Не"`);
-if(doYouHideTaxes = "Да") {
-    console.log("Браво, моето момче");
-}
-if(doYouHideTaxes = "Не") {
-    console.log("Будала");
-}
+// if(LastDigitVoterCardSerialNumber > 3) {
+//     var doYouHideTaxes = prompt(`Укриваш ли данъци? Отговори с "Да" или "Не"`);
+// if(doYouHideTaxes == "Да") {
+//     console.log("Браво, моето момче");
+// }
+// if(doYouHideTaxes == "Не") {
+//     console.log("Будала");
+// }
 // else {
 //     console.log("Невалиден отговор.");
 // }
+// }
+
+// Вариант 2:
+
+if(doYouHideTaxes) {
+    const questionFlag              = prompt(`Укриваш ли данъци - Отговори с "Да" или "Не"`);
+    const doYouHideTaxes     = (questionFlag == 'Да');
+    const message                   = doYouHideTaxes ? `Браво моето момче` : `Будала`;
+    console.log(message);
 }
-// Когато напиша ELSE пред "Не" ми излиза отговорът "Браво, моето момче" !?
+
+
+
 
 
 
@@ -81,19 +112,40 @@ if(doYouHideTaxes = "Не") {
 // Ако иска баничка, изведете съобщение - “Не може”
 // Ако не иска баничка, изведете съобщение - “Ами, то и без това няма”
 
-const isVoterSuperVIP = isVoterVIP && (doYouHideTaxes = "Не");
+const isVoterSuperVIP = isVoterVIP && (doYouHideTaxes == "Не");
+// Втори вариант: 
+// //const isVoterSuperVIP = isVoterVIP && (doYouHideTaxes == false);
+// Трети вариант:
+// const isVoterSuperVIP   = isVoterVIP  && !isVoterActualTaxFroud;
+
+// БАНИЧКА: Първи вариант:
 if(isVoterSuperVIP) {
     var doYouWantBanichka = prompt(`Искаш ли баничка? Отговори с "Да" или "Не"`)
-    if(doYouWantBanichka = "Да") {
+    if(doYouWantBanichka == "Да") {
         console.log("Не може");
     }
-    else if(doYouWantBanichka = "Не") {
+    else if(doYouWantBanichka == "Не") {
         console.log("Ами, то и без това няма");
     }
     else {
         console.log("Невалиден отговор");
     }
 }
+
+
+// БАНИЧКА: Втори вариант:
+// if(isVoterSuperVIP) {
+//     const flagQuestion = prompt(`Искаш ли баничка? Отговори с "Да" или "Не"`);
+//     var doesVoterRefuseExtraBanichka = (flagQuestion != "Y")
+
+//     if(flagQuestion == 'Y') {
+//         console.log("Не може");
+//     }
+//     else {
+//         console.log("Ами, то и без това няма");
+//     }
+// }
+
 
 
 // Задача 6
@@ -132,7 +184,7 @@ else {
 
 // Ако гласувалият не иска баничка и има статус NORMAL и е гласувал за партия с бюлетина номер 27, то любезно му напомнете (със съобщение), че животът е жесток и дължи данък от един банан при напускане на тъмната стаичка.
 
-const doesVoterNeedToPayTax = voterIsNormal && (doYouWantBanichka = "Не") && (enterPartyNumber == 27);
+const doesVoterNeedToPayTax = voterIsNormal && (doYouWantBanichka == "Не") && (enterPartyNumber == 27);
 if(doesVoterNeedToPayTax) {
     alert("И все пак всеки има право на лош вкус, моля депозирайте такса от един банан на изхода.");
 }
